@@ -1,12 +1,39 @@
 from rest_framework import generics
-from django.views.generic import ListView
 from .models import Post, Comment
+from .serializers import PostSerializer, CommentSerializer  
+from rest_framework import permissions
+from posts.permissions import IsOwnerOrReadOnly
 
 # Create your views here.
-class PostListView(ListView):
-    model = Post
-    context_object_name = 'posts'
+class PostList(generics.ListCreateAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-class CommentListView(ListView):
-    model = Comment
-    context_object_name = 'comments'
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+
+class PostDetail(generics.RetrieveUpdateDestroyAPIView):
+    
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    permission_classes = [IsOwnerOrReadOnly]
+
+
+class CommentList(generics.ListCreateAPIView):
+    
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+
+class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
+    
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    permission_classes = [IsOwnerOrReadOnly]

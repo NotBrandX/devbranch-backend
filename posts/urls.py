@@ -1,11 +1,11 @@
-from django.urls import path
-
-from .views import PostListView
-from .views import CommentListView
-
-app_name = 'posts'
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from . import views
 
 urlpatterns = [
-    path('', PostListView.as_view(), name='post-list'),
-    path('', CommentListView.as_view(), name='comment-list'),
+    path('posts/', views.PostList.as_view(), name='post_list'),
+    path('posts/<int:pk>',
+         views.PostDetail.as_view(), name='post_detail'),
+    path('comments/', views.CommentList.as_view(), name='comment_list'),
+    path('comments/<int:pk>', views.CommentDetail.as_view(), name='comment_detail'),
 ]
