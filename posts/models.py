@@ -2,6 +2,8 @@ from django.db import models
 
 class Post(models.Model):
     body = models.TextField()
+    photo = models.ImageField(
+        upload_to='images/', default='images/default.jpg')
     created = models.DateTimeField(auto_now=True, null=True)
     owner = models.ForeignKey(
         'users.User', related_name='posts', on_delete=models.CASCADE, default='')
@@ -11,6 +13,8 @@ class Post(models.Model):
 
 class Comment(models.Model):
     body = models.TextField()
+    photo = models.ImageField(
+        upload_to='images/', default='images/default.jpg')
     created = models.DateTimeField(auto_now=True, null=True)
     post = models.ForeignKey(
         Post, on_delete=models.CASCADE, related_name='comments')

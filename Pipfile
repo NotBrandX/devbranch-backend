@@ -12,6 +12,9 @@ djoser = "*"
 django-cors-headers = "*"
 whitenoise = "*"
 djangorestframework = "*"
+pillow = "*"
+django-storages = "*"
+boto3 = "*"
 
 [dev-packages]
 
