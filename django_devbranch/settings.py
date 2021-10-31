@@ -142,12 +142,10 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
         # What we'll use for the browseable API
         'rest_framework.authentication.SessionAuthentication',
-        # Basic Authentication should be removed in production
-        'rest_framework.authentication.BasicAuthentication',
     ],
     # Use Django's Allow Any to allow all users to modify data
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny'
+        'rest_framework.permissions.AllowAny',
     ]
 }
 
